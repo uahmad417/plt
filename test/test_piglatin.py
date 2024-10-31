@@ -18,3 +18,7 @@ class TestPigLatin(unittest.TestCase):
     def test_translate_word_ends_with_y(self):
         translator = PigLatin("any")
         self.assertEqual("anynay", translator.translate())
+
+    def test_translate_word_ends_with_vowel(self):
+        translator = PigLatin("apple")
+        self.assertEqual("appleyay", translator.translate())
