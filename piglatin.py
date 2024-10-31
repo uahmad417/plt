@@ -33,25 +33,28 @@ class PigLatin:
         if self.phrase == "":
             return "nil"
 
-        # Handling words starting with consonants and moving them to the end
-        consonants = ""
-        i = 0
-        while i < len(self.phrase) and self.phrase[i] not in "aeiouAEIOU":
-            consonants += self.phrase[i]
-            i += 1
+        words = self.phrase.split()
+        translated_words = []
 
-        if consonants:
-            return self.phrase[i:] + consonants + "ay"
+        for word in words:
 
-        # Handling words ending with 'y'
-        if self.phrase[-1] == 'y':
-            return self.phrase + "nay"
+            # handling for words that begin with vowel
+            if word[0] in "aeiouAEIOU":
+                if word[-1] in "aeiouAEIOU":
+                    translated_words.append(word + "yay")
+                elif word[-1] == 'y':
+                    translated_words.append(word + "nay")
+                else:
+                    translated_words.append(word + "ay")
 
-        # Handling words ending with a vowel
-        if self.phrase[-1] in "aeiouAEIOU":
-            return self.phrase + "yay"
+            # handling for words that begin with consonants
+            else:
+                consonants = ""
+                i = 0
+                while i < len(word) and word[i] not in "aeiouAEIOU":
+                    consonants += word[i]
+                    i += 1
+                translated_words.append(word[i:] + consonants + "ay")
 
-        # Handling words that end with consonants
-        else:
-            return self.phrase + "ay"
+        return " ".join(translated_words)
 

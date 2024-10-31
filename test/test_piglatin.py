@@ -39,7 +39,7 @@ class TestPigLatin(unittest.TestCase):
 
     def test_translate_word_starts_with_consonant(self):
         """if a word starts with a consonant, the translation should have the consonant removed
-        from the beginning and appended to the end along with `ay`
+        from the beginning and appended to the end along with `ay`. This rule has priority over others
         """
 
         translator = PigLatin("hello")
@@ -48,8 +48,15 @@ class TestPigLatin(unittest.TestCase):
     def test_translate_word_with_consonant_in_beginning(self):
         """If the word has consonants in the beginning, the translation should have the consonant removed
         from the beginning and appended to the end along with `ay`. The trasnlator should keep removing the
-        consonants till it reaches a vowel
+        consonants till it reaches a vowel. This rule has priority over others
         """
 
         translator = PigLatin("known")
         self.assertEqual("ownknay", translator.translate())
+
+    def test_translate_word_with_consonant_whitespaces(self):
+        """If the words have whitespaces, the translator will apply the translation rules to the individual words.
+        """
+
+        translator = PigLatin("hello world")
+        self.assertEqual("ellohay orldway", translator.translate())
