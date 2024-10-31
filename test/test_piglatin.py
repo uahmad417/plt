@@ -99,3 +99,10 @@ class TestPigLatin(unittest.TestCase):
         translator = PigLatin("hello world[")
 
         self.assertRaises(PigLatinError, translator.translate)
+
+    def test_translate_words_title_case(self):
+        """if words have titlecases, their translation should also be upper case"""
+
+        translator = PigLatin("APPLE")
+        self.assertEqual("APPLEYAY", translator.translate())
+

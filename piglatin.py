@@ -1,3 +1,4 @@
+
 import string
 from error import PigLatinError
 
@@ -55,11 +56,11 @@ class PigLatin:
             # Handling for words that begin with a vowel
             if stripped_word[0].lower() in "aeiou":
                 if stripped_word[-1].lower() in "aeiou":
-                    translated_words.append(stripped_word + "yay" + punctuation)
+                    translation = stripped_word + "yay" + punctuation
                 elif stripped_word[-1] == 'y':
-                    translated_words.append(stripped_word + "nay" + punctuation)
+                    translation = stripped_word + "nay" + punctuation
                 else:
-                    translated_words.append(stripped_word + "ay" + punctuation)
+                    translation = stripped_word + "ay" + punctuation
 
             # Handling for words that begin with consonants
             else:
@@ -70,7 +71,13 @@ class PigLatin:
                         break
                     consonants += letter
 
-                translated_words.append(stripped_word[i:] + consonants + "ay" + punctuation)
+                translation = stripped_word[i:] + consonants + "ay" + punctuation
+
+            # Maintain the case of the original word
+            if word.isupper():
+                translation = translation.upper()
+
+            translated_words.append(translation)
 
         return self.__delimiter.join(translated_words)
 
