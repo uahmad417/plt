@@ -54,9 +54,17 @@ class TestPigLatin(unittest.TestCase):
         translator = PigLatin("known")
         self.assertEqual("ownknay", translator.translate())
 
-    def test_translate_word_with_consonant_whitespaces(self):
+    def test_translate_words_seperated_by_whitespaces(self):
         """If the words have whitespaces, the translator will apply the translation rules to the individual words.
         """
 
         translator = PigLatin("hello world")
         self.assertEqual("ellohay orldway", translator.translate())
+
+    def test_translate_words_seperated_by_hyphen(self):
+        """If the words are seperated by hyphens, they are treated as individual words in the translation.
+        The hyphen stays in the translation
+        """
+
+        translator = PigLatin("well-being")
+        self.assertEqual("ellway-eingbay", translator.translate())

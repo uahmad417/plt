@@ -12,6 +12,7 @@ class PigLatin:
         """
 
         self.phrase = phrase
+        self.__delimiter = " "
 
     def get_phrase(self) -> str:
         """
@@ -33,7 +34,12 @@ class PigLatin:
         if self.phrase == "":
             return "nil"
 
-        words = self.phrase.split()
+        if '-' in self.phrase:
+            words = self.phrase.split('-')
+            self.__delimiter = "-"
+        else:
+            words = self.phrase.split()
+
         translated_words = []
 
         for word in words:
@@ -51,10 +57,13 @@ class PigLatin:
             else:
                 consonants = ""
                 i = 0
-                while i < len(word) and word[i] not in "aeiouAEIOU":
-                    consonants += word[i]
-                    i += 1
+                for i, letter in enumerate(word):
+                    if letter in "aeiouAEIOU":
+                        break
+
+                    consonants += letter
+
                 translated_words.append(word[i:] + consonants + "ay")
 
-        return " ".join(translated_words)
+        return self.__delimiter.join(translated_words)
 
