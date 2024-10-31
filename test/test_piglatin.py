@@ -36,3 +36,11 @@ class TestPigLatin(unittest.TestCase):
 
         translator = PigLatin("ask")
         self.assertEqual("askay", translator.translate())
+
+    def test_translate_word_starts_with_consonant(self):
+        """if a word starts with a consonant, the translation should have the consonant removed
+        from the beginning and appended to the end along with `ay`
+        """
+
+        translator = PigLatin("hello")
+        self.assertEqual("ellohay", translator.translate())
