@@ -1,69 +1,70 @@
 
 class PigLatin:
     """
-    PigLatin class to translate english phrases to pig latin
+    PigLatin class to translate English phrases to Pig Latin
     """
 
     def __init__(self, phrase: str):
         """
-        initialize the pig latin object
+        Initialize the Pig Latin object
 
-        :param phrase: the english phrase to be translated
+        :param phrase: the English phrase to be translated
         """
-
         self.phrase = phrase
         self.__delimiter = " "
 
     def get_phrase(self) -> str:
         """
-        Returns the english phrase
+        Returns the English phrase
 
-        :return: the english phrase as a string
+        :return: the English phrase as a string
         """
-
         return self.phrase
 
     def translate(self) -> str:
         """
-        Translates the phrase from english to pig latin
+        Translates the phrase from English to Pig Latin
 
-        :return: the piglatin translation as string
+        :return: the Pig Latin translation as string
         """
-
         # Handling words that are empty strings
         if self.phrase == "":
             return "nil"
 
+        # Splitting the phrase based on spaces and hyphens
         if '-' in self.phrase:
             words = self.phrase.split('-')
             self.__delimiter = "-"
         else:
             words = self.phrase.split()
+            self.__delimiter = " "
 
         translated_words = []
 
         for word in words:
+            # Strip punctuation from the end of the word
+            stripped_word = word.rstrip('!.,?')
+            punctuation = word[len(stripped_word):]
 
-            # handling for words that begin with vowel
-            if word[0] in "aeiouAEIOU":
-                if word[-1] in "aeiouAEIOU":
-                    translated_words.append(word + "yay")
-                elif word[-1] == 'y':
-                    translated_words.append(word + "nay")
+            # Handling for words that begin with a vowel
+            if stripped_word[0].lower() in "aeiou":
+                if stripped_word[-1].lower() in "aeiou":
+                    translated_words.append(stripped_word + "yay" + punctuation)
+                elif stripped_word[-1] == 'y':
+                    translated_words.append(stripped_word + "nay" + punctuation)
                 else:
-                    translated_words.append(word + "ay")
+                    translated_words.append(stripped_word + "ay" + punctuation)
 
-            # handling for words that begin with consonants
+            # Handling for words that begin with consonants
             else:
                 consonants = ""
                 i = 0
-                for i, letter in enumerate(word):
-                    if letter in "aeiouAEIOU":
+                for i, letter in enumerate(stripped_word):
+                    if letter.lower() in "aeiou":
                         break
-
                     consonants += letter
 
-                translated_words.append(word[i:] + consonants + "ay")
+                translated_words.append(stripped_word[i:] + consonants + "ay" + punctuation)
 
         return self.__delimiter.join(translated_words)
 
