@@ -1,3 +1,5 @@
+import string
+from error import PigLatinError
 
 class PigLatin:
     """
@@ -43,8 +45,12 @@ class PigLatin:
 
         for word in words:
             # Strip punctuation from the end of the word
-            stripped_word = word.rstrip('!.,?')
+            stripped_word = word.rstrip("!.,?;:'()")
             punctuation = word[len(stripped_word):]
+
+            # Check for invalid punctuation
+            if any(char in stripped_word for char in string.punctuation):
+                raise PigLatinError("Invalid punctuation found in the word.")
 
             # Handling for words that begin with a vowel
             if stripped_word[0].lower() in "aeiou":

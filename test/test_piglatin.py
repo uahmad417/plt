@@ -91,3 +91,11 @@ class TestPigLatin(unittest.TestCase):
 
         translator = PigLatin("hello world!")
         self.assertEqual("ellohay orldway!", translator.translate())
+
+    def test_translate_words_containing_invalid_punctuation(self):
+        """If the words contain invalid puncutations, the translator should raise a
+        `PigLatinError`.
+        """
+        translator = PigLatin("hello world[")
+
+        self.assertRaises(PigLatinError, translator.translate)
