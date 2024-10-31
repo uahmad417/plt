@@ -1,4 +1,6 @@
 import unittest
+from idlelib.pyparse import trans
+
 from piglatin import PigLatin
 from error import PigLatinError
 
@@ -12,3 +14,7 @@ class TestPigLatin(unittest.TestCase):
     def test_translate_empty_string(self):
         translator = PigLatin("")
         self.assertEqual("nil", translator.translate())
+
+    def test_translate_word_ends_with_y(self):
+        translator = PigLatin("any")
+        self.assertEqual("anynay", translator.translate())
