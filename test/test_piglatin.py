@@ -44,3 +44,12 @@ class TestPigLatin(unittest.TestCase):
 
         translator = PigLatin("hello")
         self.assertEqual("ellohay", translator.translate())
+
+    def test_translate_word_with_consonant_in_beginning(self):
+        """If the word has consonants in the beginning, the translation should have the consonant removed
+        from the beginning and appended to the end along with `ay`. The trasnlator should keep removing the
+        consonants till it reaches a vowel
+        """
+
+        translator = PigLatin("known")
+        self.assertEqual("ownknay", translator.translate())
